@@ -56,11 +56,29 @@ Assert.Equal("value-my", response.tokenResponse.access_token);
 
 ### Meaninful Asesertion Failures
 
-```
+Install fluent
 
 ```
+dotnet add Test/Test.csproj package FluentAssertions
+```
 
 
+
+Message with fluent assertions `actual.Should().BeEquivalentTo(expected);`
+
+```
+Expected member tokenResponse.access_token to be 
+"value-my" with a length of 8, but 
+"bad-value" has a length of 9, differs near "bad" (index 0).
+```
+
+
+
+Default mst test outpu :
+
+```
+Expected:<{ time = value, date = good value, tokenResponse = { access_token = value-my } }>. Actual:<{ time = value, date = good value, tokenResponse = { access_token = bad-value } }>. 
+```
 
 
 
