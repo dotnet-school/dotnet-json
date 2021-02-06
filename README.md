@@ -30,10 +30,24 @@ dotnet add Tests/Tests.csproj package Newtonsoft.Json
 
 
 
-```
+We can use an anonymous object o achive this 
+
+```csharp
 // Need newtonsoft for this
 
+var json = new
+{
+  time = "value",
+  date = "good value",
+  tokenResponse = new {
+    access_token = "value-my"
+  }
+};
 
+var response = Newtonsoft.Json.JsonConvert.DeserializeAnonymousType(jsonString, json);
+
+Assert.Equal(json, response);
+Assert.Equal("value-my", response.tokenResponse.access_token);
 ```
 
 
