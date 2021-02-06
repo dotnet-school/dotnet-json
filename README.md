@@ -20,7 +20,15 @@ var jsonString = System.Text.Json.JsonSerializer.Serialize(json);
 
 
 
-### Read json 
+### Read json dynamically
+
+Add newtonsoft 
+
+```
+dotnet add Tests/Tests.csproj package Newtonsoft.Json
+```
+
+
 
 ```
 // Need newtonsoft for this
