@@ -8,7 +8,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Tests
 {
   [TestClass]
-    public class JsonAssertions
+    public class JsonAssertionsWithDoubles
     {
 
       static object expected = new
@@ -16,7 +16,7 @@ namespace Tests
               time = "value",
               date = "good value",
               tokenResponse = new {
-                      access_token = "value-my"
+                      value = 1.22231
               }
       };
       
@@ -25,7 +25,7 @@ namespace Tests
         time = "value",
         date = "good value",
         tokenResponse = new {
-                access_token = "bad-value"
+                value = 1.222310003
         }
       };
       
@@ -33,7 +33,11 @@ namespace Tests
       [TestMethod]
       public void WithFluent()
         {
-          actual.Should().BeEquivalentTo(expected);
+          actual.Should().BeEquivalentTo(expected, (options) =>
+          {
+            
+            return options;
+          });
         }
         
       [TestMethod]

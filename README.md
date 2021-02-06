@@ -64,15 +64,17 @@ dotnet add Test/Test.csproj package FluentAssertions
 
 
 
+### Custom message (using AnyDiff)
+
 ```
   Error Message:
    Test method Tests.JsonAssertions.CustomWithAnyDiff threw exception:
 System.ApplicationException:
 expected.tokenResponse.access_token : bad-value
-actual.tokenResponse.access_token : value-my
+actual.tokenResponse.access_token   : value-my
 
   Stack Trace:
-      at Tests.JsonAssertions.CompareJson(Object expected, Object actual) in /Users/dawn/projects/dotnet-school/dotnet-json/Test/04JsonAssertions.cs:line 70
+      at Tests.JsonAssertions.CompareJson(Object expected, Object actual) in /Users/dawn/projects/dotnet-school/dotnet-json/Test/04JsonAssertions.cs:line 68
    at Tests.JsonAssertions.CustomWithAnyDiff() in /Users/dawn/projects/dotnet-school/dotnet-json/Test/04JsonAssertions.cs:line 49
 ```
 
@@ -114,6 +116,31 @@ Default mst test outpu :
    Assert.AreEqual failed. Expected:<{ time = value, date = good value, tokenResponse = { access_token = value-my } }>. Actual:<{ time = value, date = good value, tokenResponse = { access_token = bad-value } }>.
   Stack Trace:
      at Tests.JsonAssertions.WithMsTest() in /Users/dawn/projects/dotnet-school/dotnet-json/Test/04JsonAssertions.cs:line 42
+```
+
+
+
+Custom assertsion : 
+
+```csharp
+private static void CompareJson(object expected, object actual)
+{
+  if (expected.Equals(actual))return;
+
+  var diff = expected.Diff(actual);
+
+  var message = string.Join(Environment.NewLine, diff.Select(d =>
+		{
+      var message = $"{Environment.NewLine}" +
+        $"expected{d.Path} : {d.RightValue}{Environment.NewLine}" +
+        $"actual{d.Path}   : {d.LeftValue}{Environment.NewLine}";
+      return message;
+    }
+	));
+  
+  throw new ApplicationException(message);
+}
+
 ```
 
 
