@@ -47,14 +47,26 @@ var json = new
 var response = Newtonsoft.Json.JsonConvert.DeserializeAnonymousType(jsonString, json);
 
 Assert.Equal(json, response);
+
+// Refer as named field
 Assert.Equal("value-my", response.tokenResponse.access_token);
 ```
 
 
 
+### Meaninful Asesertion Failures
+
+```
+
+```
+
+
+
+
+
 ### Todo
 
-- [ ] can we deserialize an anonymous object ? (https://www.newtonsoft.com/json/help/html/DeserializeAnonymousType.htm)
+- [x] can we deserialize an anonymous object ? (https://www.newtonsoft.com/json/help/html/DeserializeAnonymousType.htm)
 - [x] Write json with minimal syntaxes (use anonymouse, awesome)
 - [ ] Try json assertions (check failure messages)
 - [ ] Compare anonymous objet with json and good assertion failure messages
